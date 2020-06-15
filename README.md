@@ -1,6 +1,33 @@
-# text-comparison
-Flask app that compares two text files (python)
+# ALGORITMO MARCAS-MATCH v.02
+Flask app que compara dos archivos de textos extraidos de PDF Diario Oficial Chile (python)
 
-Youll need to add cs50 and nltk modules from pip3.
-Flask app that compares two text files and will display on the website the texts highlighted with the differences.
-Python.
+
+Requisitos Instalación:
+
+Debes agregar e instalar en tu sistema los siguiente modulos usando pip3 :
+
+pip install cs50
+
+
+pip install nltk  
+
+
+
+
+Luego correr:
+
+
+
+python app.py
+
+
+
+Eso es todo - 
+
+
+César Rivas - Developer
+
+
+
+
+
