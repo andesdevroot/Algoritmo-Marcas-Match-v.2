@@ -32,7 +32,7 @@ def index():
 def compare():
     """Handle requests for /compare via POST"""
 
-    # Read files
+    # Leer archivos
     if not request.files["file1"] or not request.files["file2"]:
         abort(400, "missing file")
     try:
@@ -41,7 +41,7 @@ def compare():
     except Exception:
         abort(400, "invalid file")
 
-    # Compare files
+    # Compara archivos
     if not request.form.get("algorithm"):
         abort(400, "missing algorithm")
     elif request.form.get("algorithm") == "lines":
@@ -58,18 +58,18 @@ def compare():
     else:
         abort(400, "invalid algorithm")
 
-    # Highlight files
+    # Destaca en amarillo el contenido de los archivos
     highlights1 = highlight(file1, regexes)
     highlights2 = highlight(file2, regexes)
 
-    # Output comparison
+    # Comparacion de salida
     return render_template("compare.html", file1=highlights1, file2=highlights2)
 
 
 def highlight(s, regexes):
     """Highlight all instances of regexes in s."""
 
-    # Get intervals for which strings match
+    # Obtiene los intervalos de las palabras que hacen MATCH
     intervals = []
     for regex in regexes:
         if not regex:
@@ -79,7 +79,7 @@ def highlight(s, regexes):
             intervals.append((match.start(), match.end()))
     intervals.sort(key=lambda x: x[0])
 
-    # Combine intervals to get highlighted areas
+    # Combina intervalos para obtener áreas resaltadas
     highlights = []
     for interval in intervals:
         if not highlights:
@@ -87,27 +87,27 @@ def highlight(s, regexes):
             continue
         last = highlights[-1]
 
-        # If intervals overlap, then merge them
+        # Si los intervalos se superponen, combínalo ( MACHINE LEARNING )
         if interval[0] <= last[1]:
             new_interval = (last[0], interval[1])
             highlights[-1] = new_interval
 
-        # Else, start a new highlight
+        # De lo contrario, comience un nuevo punto culminante ( MACHINE LEARNING )
         else:
             highlights.append(interval)
 
-    # Maintain list of regions: each is a start index, end index, highlight
+    # Mantener la lista de regiones: cada una es un índice de inicio, un índice final, un resaltado
     regions = []
 
-    # If no highlights at all, then keep nothing highlighted
+    #Si no hay MATCH , entonces no mantenga nada resaltado  ( MACHINE LEARNING )
     if not highlights:
         regions = [(0, len(s), False)]
 
-    # If first region is not highlighted, designate it as such
+    # Si la primera región no está resaltada, designe como tal  ( MACHINE LEARNING )
     elif highlights[0][0] != 0:
         regions = [(0, highlights[0][0], False)]
 
-    # Loop through all highlights and add regions
+    # Recorreodos las palabras y  aspectos destacados y agregue regiones
     for start, end in highlights:
         if start != 0:
             prev_end = regions[-1][1]
@@ -115,11 +115,11 @@ def highlight(s, regexes):
                 regions.append((prev_end, start, False))
         regions.append((start, end, True))
 
-    # Add final unhighlighted region if necessary
+    # Agregue la región final no resaltada si es necesario
     if regions[-1][1] != len(s):
         regions.append((regions[-1][1], len(s), False))
 
-    # Combine regions into final result
+    # Combina regiones en el resultado final
     result = ""
     for start, end, highlighted in regions:
         escaped = escape(s[start:end])
