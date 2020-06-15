@@ -6,12 +6,11 @@ Requisitos Instalación:
 
 Debes agregar e instalar en tu sistema los siguiente modulos usando pip3 :
 
+
 pip install cs50
 
 
 pip install nltk  
-
-
 
 
 Luego correr:
