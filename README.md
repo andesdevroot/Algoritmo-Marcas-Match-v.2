@@ -24,7 +24,6 @@ python app.py
 Eso es todo - 
 
 
-César Rivas - Developer
 
 
 
